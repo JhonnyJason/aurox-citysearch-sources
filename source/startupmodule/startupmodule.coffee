@@ -21,8 +21,9 @@ startupmodule.initialize = () ->
 #region exposed functions
 startupmodule.serviceStartup = ->
     log "startupmodule.serviceStartup"
-    citysearch.setUpDataStructure()
+    citysearch.setUpDataStructures()
     sci.prepareAndExpose()
+    console.log("Ready and prepared!")
 
 #endregion exposed functions
 

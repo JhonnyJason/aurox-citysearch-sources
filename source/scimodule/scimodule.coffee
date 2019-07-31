@@ -41,26 +41,62 @@ setAllowedOrigins = ->
         res.header 'Access-Control-Allow-Headers', 'Content-Type'
         next()
 
-onCitysearch = (req, res) ->
-    log 'onCitysearch'
-    log req.body
-
-    maxResults = cfg.defaultMaxResults
-    if req.body.maxResults
-        maxResults = req.body.maxResults
-
-    searchString = '' 
-    if req.body.searchString
-        searchString = req.body.searchString.toLowerCase()
-
-    #kick off search, which terminates synchronously
-    results = search.doSearch(searchString, maxResults)
-    res.send results
-    return
-
 attachSCIFunctions = ->
     log "attachSCIFunctions"
-    app.post '/citysearch', onCitysearch 
+    app.post '/citysearch', onCitySearch 
+    app.post '/stringsearch', onStringSearch 
+    app.post '/coordsearch', onCoordSearch 
+
+
+## SCI handler functions
+onCitySearch = (req, res) ->
+    log 'onCitysearch'
+    try
+        log JSON.stringify(req.body)
+        maxResults = cfg.defaultMaxResults
+        if req.body.maxResults
+            maxResults = req.body.maxResults
+
+        searchString = '' 
+        if req.body.searchString
+            searchString = req.body.searchString.toLowerCase()
+            results = search.doStringSearch(searchString, maxResults)
+        else 
+            lon = req.body.lon
+            lat = req.body.lat
+            results = search.doCoordSearch(lon, lat)
+
+        #kick off search, which terminates synchronously
+    catch error then results = ["error:" + error]
+    finally res.send results
+    return
+
+onCoordSearch = (req, res) ->
+    log 'onCitysearch'
+    try
+        log JSON.stringify(req.body, null, 2)
+        lon = req.body.lon
+        lat = req.body.lat
+
+        results = search.doCoordSearch(lon, lat)
+    catch error then results = ["error:" + error]
+    finally res.send results
+    return
+
+onStringSearch = (req, res) ->
+    log 'onCitysearch'
+    try
+        log JSON.stringify(req.body)
+        maxResults = cfg.defaultMaxResults
+        if req.body.maxResults
+            maxResults = req.body.maxResults
+
+        searchString = req.body.searchString.toLowerCase()
+        results = search.doStringSearch(searchString, maxResults)
+    catch error then results = ["error:" + error]
+    finally res.send results
+    return
+
 #endregion
 
 

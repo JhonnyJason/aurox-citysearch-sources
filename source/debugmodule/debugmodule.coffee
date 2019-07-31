@@ -8,8 +8,10 @@ debugmodule.modulesToDebug =
     unbreaker: true
     # citysearchmodule: true
     # configmodule: true
+    coordsearchmodule: true
     # scimodule: true
     # startupmodule: true
+    # stringsearchmodule: true
 
 #region exposed variables
 
