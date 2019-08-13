@@ -29,8 +29,8 @@ coordsearchmodule.initialize = () ->
 
 #region internal functions
 tranformToDigits = (floatNum) ->
-    floatNum += 1200
-    return Math.round(floatNum * 10000000).toString()
+    floatNumber += 1200.0
+    return Math.round(floatNumber * 10000000).toString()
 
 transformToCoord = (digits) ->
     number = parseInt(digits) || 0
@@ -60,9 +60,7 @@ printSearchState = ->
     log "lonDigit: " + currentLonAsDigits.charAt(currentDigitIndex)
     log "latDigit: " + currentLatAsDigits.charAt(currentDigitIndex)
     log "matchedLonDigits: " + matchedLonDigits
-    log "as lon: " + transformToCoord(matchedLonDigits)
     log "matchedLatDigits: " + matchedLatDigits
-    log "as lat: " + transformToCoord(matchedLatDigits)
     log " - - - - - - - \n"
 
 #==========================================================================================
@@ -152,26 +150,27 @@ leafToResult = (leaf) ->
     result = 
         cityID: leaf.id
         cityName: leaf.name + ', ' + leaf.country
+    log JSON.stringify(result)
     return result
 
 findBestFit = () ->
     log "findBestFit"
 
     possiblePairs = generatePossiblePairsFromCurrentNode()
-    log "collected possiblePairs:\n" + JSON.stringify(possiblePairs, null, 2)
+    # log "collected possiblePairs:\n" + JSON.stringify(possiblePairs, null, 2)
     
     targetPair = 
         lon: parseInt(lonDigit) || 0
         lat: parseInt(latDigit) || 0
-    log "target Pair: \n" + JSON.stringify(targetPair, null, 2)
+    # log "target Pair: \n" + JSON.stringify(targetPair, null, 2)
     
     pairToGo = identifyClosestPair(targetPair, possiblePairs)
-    log "closest Pair: \n" + JSON.stringify(pairToGo, null, 2)
+    # log "closest Pair: \n" + JSON.stringify(pairToGo, null, 2)
     lonDigit = pairToGo.lon
     latDigit = pairToGo.lat
 
 identifyClosestPair = (target, options) -> 
-    log "identifyClosestPair"
+    # log "identifyClosestPair"
     closestOption = null
     closestDistance = 1000
     for option in options
@@ -184,7 +183,7 @@ identifyClosestPair = (target, options) ->
     return closestOption
 
 generatePossiblePairsFromCurrentNode = ->
-    log "generatePossiblePairsFromCurrentNode"
+    # log "generatePossiblePairsFromCurrentNode"
     lonOptions = Object.keys(currentNode.lonNodes)
     pairOptions = []
     for lonOption in lonOptions
