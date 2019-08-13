@@ -29,7 +29,7 @@ coordsearchmodule.initialize = () ->
 
 #region internal functions
 tranformToDigits = (floatNum) ->
-    floatNumber += 1200.0
+    floatNumber = floatNum + 1200.0
     return Math.round(floatNumber * 10000000).toString()
 
 transformToCoord = (digits) ->
