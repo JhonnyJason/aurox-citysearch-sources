@@ -29,8 +29,17 @@ coordsearchmodule.initialize = () ->
 
 #region internal functions
 tranformToDigits = (floatNum) ->
-    floatNumber = floatNum + 1200.0
-    return Math.round(floatNumber * 10000000).toString()
+    log "tranformToDigits"
+    log "initial number is: " + floatNum
+    positive = floatNum + 1200.0
+    log "after adding 1200.0 we have: " + positive
+    big = 10000000 * positive
+    log "after multiplying by 10000000 we have: " + big
+    integer = Math.round(big)
+    log "after rounding we have: " + integer
+    digits = integer.toString()
+    log "after toString we have: " + digits
+    return digits
 
 transformToCoord = (digits) ->
     number = parseInt(digits) || 0
@@ -56,11 +65,11 @@ printSearchState = ->
     log " lat Digits: " + currentLatAsDigits
     log " lat: " + transformToCoord(currentLatAsDigits)
     log " - - - searching:"
-    log "index: " + currentDigitIndex
-    log "lonDigit: " + currentLonAsDigits.charAt(currentDigitIndex)
-    log "latDigit: " + currentLatAsDigits.charAt(currentDigitIndex)
     log "matchedLonDigits: " + matchedLonDigits
     log "matchedLatDigits: " + matchedLatDigits
+    log "current index: " + currentDigitIndex
+    log "current lonDigit: " + currentLonAsDigits.charAt(currentDigitIndex)
+    log "current latDigit: " + currentLatAsDigits.charAt(currentDigitIndex)
     log " - - - - - - - \n"
 
 #==========================================================================================
