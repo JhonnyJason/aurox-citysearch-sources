@@ -28,17 +28,13 @@ coordsearchmodule.initialize = () ->
     
 
 #region internal functions
-tranformToDigits = (floatNum, logging) ->
-    log "tranformToDigits" if logging
-    log "initial number is: " + floatNum  if logging
+tranformToDigits = (floatNum) ->
+    if typeof floatNum == "string"
+        floatNum = parseFloat(floatNum) || 0
     positive = floatNum + 1200.0
-    log "after adding 1200.0 we have: " + positive  if logging
     big = 10000000 * positive
-    log "after multiplying by 10000000 we have: " + big  if logging
     integer = Math.round(big)
-    log "after rounding we have: " + integer  if logging
     digits = integer.toString()
-    log "after toString we have: " + digits  if logging
     return digits
 
 transformToCoord = (digits) ->
@@ -233,8 +229,8 @@ checkNextLevel = ->
 #region exposed functions
 coordsearchmodule.doSearch = (lon, lat) ->
     log "coordsearchmodule.doSearch " + lon + ", " + lat
-    currentLonAsDigits = tranformToDigits(lon, true)
-    currentLatAsDigits = tranformToDigits(lat, true)
+    currentLonAsDigits = tranformToDigits(lon)
+    currentLatAsDigits = tranformToDigits(lat)
     bestFit = bestFitSearch()
     currentLonAsDigits = ""
     currentLatAsDigits = ""
@@ -246,8 +242,8 @@ coordsearchmodule.addEntry = (entry) ->
     # log "coordsearchmodule.addEntry"
     currentEntryToInsert = entry
     # throw "death On Purpose!"
-    currentLonAsDigits = tranformToDigits(entry.coord.lon, false)
-    currentLatAsDigits = tranformToDigits(entry.coord.lat, false)
+    currentLonAsDigits = tranformToDigits(entry.coord.lon)
+    currentLatAsDigits = tranformToDigits(entry.coord.lat)
     insertCityEntry()
     currentLonAsDigits = ""
     currentLatAsDigits = ""
