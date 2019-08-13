@@ -246,7 +246,7 @@ coordsearchmodule.addEntry = (entry) ->
     # log "coordsearchmodule.addEntry"
     currentEntryToInsert = entry
     # throw "death On Purpose!"
-    currentLonAsDigits = tranformToDigits(entry.coord.lon, fasle)
+    currentLonAsDigits = tranformToDigits(entry.coord.lon, false)
     currentLatAsDigits = tranformToDigits(entry.coord.lat, false)
     insertCityEntry()
     currentLonAsDigits = ""
