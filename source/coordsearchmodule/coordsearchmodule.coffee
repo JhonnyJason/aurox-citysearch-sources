@@ -151,8 +151,8 @@ findBestFit = () ->
     log "collected possiblePairs:\n" + JSON.stringify(possiblePairs, null, 2)
     
     targetPair = 
-        lon: parseInt(lonDigit)
-        lat: parseInt(latDigit)
+        lon: parseInt(lonDigit) || 0
+        lat: parseInt(latDigit) || 0
     log "target Pair: \n" + JSON.stringify(targetPair, null, 2)
     
     pairToGo = identifyClosestPair(targetPair, possiblePairs)
