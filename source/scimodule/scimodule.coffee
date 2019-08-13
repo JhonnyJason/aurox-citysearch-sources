@@ -102,12 +102,12 @@ onStringSearch = (req, res) ->
 
 #region exposed functions
 scimodule.prepareAndExpose = ->
-    log "scimodule.exposeInteface"
+    log "scimodule.prepareAndExpose"
     setAllowedOrigins()
     attachSCIFunctions()
-    port = process.env.port || cfg.defaultPort
+    port = process.env.PORT || cfg.defaultPort
     app.listen port
-    log "listening in port: " + port
+    log "listening on port: " + port
 
 #endregion exposed functions
 

@@ -10,11 +10,14 @@ configmodule.initialize = () ->
     log "configmodule.initialize"
     
 #region the configuration Object
-configmodule.defaultPort = 3003
+configmodule.defaultPort = 3008
 configmodule.defaultMaxResults = 30
 configmodule.allowedOrigins = [
-    'http://localhost:3002'
-    'http://localhost:3003'
+    'http://localhost:3008',
+    'http://citysearch.aurox.at',
+    'https://citysearch.aurox.at',
+    'http://citysearch.auroxtech.com',
+    'https://citysearch.auroxtech.com'
   ]
 #endregion
 
