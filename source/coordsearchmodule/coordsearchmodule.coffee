@@ -32,6 +32,12 @@ tranformToDigits = (floatNum) ->
     floatNum += 1200
     return Math.round(floatNum * 10000000).toString()
 
+transformToCoord = (digits) ->
+    number = parseInt(digits) || 0
+    number = 1.0 * number / 10000000
+    number -= 1200
+    return number
+
 printCurrentInsertState = ->
     log " - - - - - \n" + JSON.stringify currentEntryToInsert
     log " - - - - - tree:\n" + JSON.stringify(rootNode, null, 2)
@@ -44,12 +50,19 @@ printCurrentInsertState = ->
 printSearchState = ->
     # log " - - - - - \n" + JSON.stringify currentEntryToInsert
     # log " - - - - - tree:\n" + JSON.stringify(rootNode, null, 2)
+    log " - - - To search for: "
+    log " lon Digits: " + currentLonAsDigits
+    log " lon: " + transformToCoord(currentLonAsDigits)
+    log " lat Digits: " + currentLatAsDigits
+    log " lat: " + transformToCoord(currentLatAsDigits)
     log " - - - searching:"
     log "index: " + currentDigitIndex
     log "lonDigit: " + currentLonAsDigits.charAt(currentDigitIndex)
     log "latDigit: " + currentLatAsDigits.charAt(currentDigitIndex)
     log "matchedLonDigits: " + matchedLonDigits
+    log "as lon: " + transformToCoord(matchedLonDigits)
     log "matchedLatDigits: " + matchedLatDigits
+    log "as lat: " + transformToCoord(matchedLatDigits)
     log " - - - - - - - \n"
 
 #==========================================================================================
@@ -144,9 +157,6 @@ leafToResult = (leaf) ->
 findBestFit = () ->
     log "findBestFit"
 
-    #TODO: maybe?
-    #Roll with the only option if we only have one option left
-
     possiblePairs = generatePossiblePairsFromCurrentNode()
     log "collected possiblePairs:\n" + JSON.stringify(possiblePairs, null, 2)
     
@@ -220,6 +230,8 @@ coordsearchmodule.doSearch = (lon, lat) ->
     bestFit = bestFitSearch()
     currentLonAsDigits = ""
     currentLatAsDigits = ""
+    matchedLatDigits = ""
+    matchedLonDigits = ""
     return bestFit
 
 coordsearchmodule.addEntry = (entry) ->
