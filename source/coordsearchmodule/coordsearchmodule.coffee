@@ -115,12 +115,11 @@ bestFitSearch = ->
     if !rootNode.lonNodes[lonDigit]
         currentNode = rootNode
         findBestFit()
-        return leafToResult(currentNode.leaf)
-
-    if !rootNode.lonNodes[lonDigit].latNodes[latDigit]
+        return leafToResult(currentNode.leaf) if currentNode.leaf?
+    else if !rootNode.lonNodes[lonDigit].latNodes[latDigit]
         currentNode = rootNode
         findBestFit()
-        return leafToResult(currentNode.leaf)
+        return leafToResult(currentNode.leaf) if currentNode.leaf?
 
     matchedLonDigits += lonDigit
     matchedLatDigits += latDigit
