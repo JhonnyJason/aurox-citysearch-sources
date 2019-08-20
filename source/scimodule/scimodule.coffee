@@ -52,6 +52,7 @@ attachSCIFunctions = ->
 onCitySearch = (req, res) ->
     log 'onCitysearch'
     try
+        log req.body
         log JSON.stringify(req.body)
         maxResults = cfg.defaultMaxResults
         if req.body.maxResults
