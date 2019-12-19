@@ -1,8 +1,8 @@
 module.exports = {
     getDependencies: () => {
         return {
-            "body-parser": "^1.18.3",
-            "express": "^4.16.3"
+            "body-parser": "^1.19.0",
+            "express": "^4.17.1"
         }
 
     }
